@@ -29,6 +29,16 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
+
+    //Swagger
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2'
+
+    implementation 'org.springframework.cloud:spring-cloud-starter-aws'
+    implementation group: 'org.eclipse.jgit', name: 'org.eclipse.jgit', version: '4.4.1.201607150455-r'
+    implementation 'software.amazon.awssdk:ecr:2.20.5'
+    implementation 'software.amazon.awssdk:ecs:2.20.5'
+    implementation 'software.amazon.awssdk:cloudwatchlogs:2.20.5'
+
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'org.postgresql:postgresql'
     annotationProcessor 'org.projectlombok:lombok'
