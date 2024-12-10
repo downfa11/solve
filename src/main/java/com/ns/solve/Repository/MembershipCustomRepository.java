@@ -5,4 +5,5 @@ import java.util.Optional;
 
 public interface MembershipCustomRepository {
     Optional<Membership> findByMembershipId(Long membershipId);
+    Optional<Membership> findByAccount(String membershipAccount);
 }

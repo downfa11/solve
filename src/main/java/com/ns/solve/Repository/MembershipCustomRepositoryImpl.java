@@ -20,4 +20,9 @@ public class MembershipCustomRepositoryImpl implements MembershipCustomRepositor
     public Optional<Membership> findByMembershipId(Long membershipId) {
         return Optional.empty();
     }
+
+    @Override
+    public Optional<Membership> findByAccount(String membershipAccount) {
+        return null;
+    }
 }

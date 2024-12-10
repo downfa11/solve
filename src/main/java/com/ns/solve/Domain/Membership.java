@@ -29,25 +29,22 @@ public class Membership {
     private String nickname;
     private String address;
     private String email;
+    private String password;
 
     public enum ROLE{
-        ADMIN, MANAGER, TESTER, PARTICIPANT
+        ADMIN, MANAGER, USER
     }
     private ROLE role;
-
-    private String region;
-    private Integer exp;
-    private Integer level;
-    private String type;
-
-    private String curProductRegion;
-
-    private boolean isValid;
 
     private String refreshToken;
 
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
     @Column(name = "created_at")
     private Timestamp createdAt;
+
+
+    public String getRoleName() {
+        return "ROLE_" + this.role.name();
+    }
 
 }
