@@ -1,4 +1,4 @@
-package com.ns.solve.Domain;
+package com.ns.solve.Domain.dto;
 
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;

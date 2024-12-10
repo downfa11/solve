@@ -1,7 +1,6 @@
 package com.ns.solve.Controller;
 
-import com.ns.solve.Domain.ProblemDto;
-import com.ns.solve.Service.ImageService;
+import com.ns.solve.Domain.dto.ProblemDto;
 import com.ns.solve.Service.ProblemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;

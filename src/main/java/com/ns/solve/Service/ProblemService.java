@@ -1,10 +1,19 @@
 package com.ns.solve.Service;
 
-import com.ns.solve.Domain.ProblemDto;
+import com.ns.solve.Domain.Problem;
+import com.ns.solve.Domain.ProblemFilter;
+import com.ns.solve.Domain.dto.ProblemDto;
+import com.ns.solve.Repository.ProblemRepository;
+import java.util.List;
+import java.util.Optional;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class ProblemService {
+    private final ProblemRepository problemRepository;
+
     public void registerProblem(boolean isPublic, ProblemDto problemDto) {
         if (isPublic) {
             System.out.println("공개 문제 등록: " + problemDto);
@@ -27,5 +36,13 @@ public class ProblemService {
 
     public void findProblem(Long problemId) {
         System.out.println("문제 조회: ID = " + problemId);
+    }
+
+    private List<Problem> findByProblemId(Long problemId){
+        ProblemFilter filter = ProblemFilter.builder()
+                .problemStatus(null)
+                .regions(null)
+                .build();
+        return problemRepository.findByProblemId(problemId, filter);
     }
 }

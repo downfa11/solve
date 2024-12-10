@@ -4,33 +4,25 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Map;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
-public class Problem {
+public class Assignment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long assignmentId;
+
     private Long problemId;
-
-    public enum ProblemStatus{
-        ALGORITHM, ASSIGNMENT, CTF
-    }
-
-    private ProblemStatus status;
-
     private Long membershipId;
-    private LocalDateTime deadline;
+
     private String detail;
+    private String gitRepository;
 
-
-    private List<Case> caseList;
-
-
+    private Map<String, String> caseAccuracy;
 }

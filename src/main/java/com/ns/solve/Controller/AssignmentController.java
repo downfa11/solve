@@ -1,6 +1,6 @@
 package com.ns.solve.Controller;
 
-import com.ns.solve.Domain.AssignmentDto;
+import com.ns.solve.Domain.dto.AssignmentDto;
 import com.ns.solve.Service.AssignmentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;

@@ -1,4 +1,4 @@
-package com.ns.solve.Domain;
+package com.ns.solve.Domain.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
