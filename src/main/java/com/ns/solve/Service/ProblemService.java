@@ -1,11 +1,10 @@
 package com.ns.solve.Service;
 
 import com.ns.solve.Domain.Problem;
-import com.ns.solve.Domain.ProblemFilter;
+import com.ns.solve.Domain.dto.ProblemFilter;
 import com.ns.solve.Domain.dto.ProblemDto;
 import com.ns.solve.Repository.ProblemRepository;
 import java.util.List;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
