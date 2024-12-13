@@ -21,8 +21,6 @@ public class QAssignment extends EntityPathBase<Assignment> {
 
     public final NumberPath<Long> assignmentId = createNumber("assignmentId", Long.class);
 
-    public final MapPath<String, String, StringPath> caseAccuracy = this.<String, String, StringPath>createMap("caseAccuracy", String.class, String.class, StringPath.class);
-
     public final StringPath detail = createString("detail");
 
     public final StringPath gitRepository = createString("gitRepository");

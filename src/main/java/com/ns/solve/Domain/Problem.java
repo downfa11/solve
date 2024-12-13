@@ -29,8 +29,5 @@ public class Problem {
     private LocalDateTime deadline;
     private String detail;
 
-
-    private List<Case> caseList;
-
-
+    // private List<Case> caseList;
 }

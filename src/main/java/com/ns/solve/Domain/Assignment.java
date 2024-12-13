@@ -24,5 +24,5 @@ public class Assignment {
     private String detail;
     private String gitRepository;
 
-    private Map<String, String> caseAccuracy;
+    // private Map<String, String> caseAccuracy;
 }

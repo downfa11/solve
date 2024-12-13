@@ -204,3 +204,12 @@ db/data/server-key.pem
 db/data/sys/sys_config.ibd
 db/data/undo_001
 db/data/undo_002
+db/data/\#innodb_redo/\#ib_redo10
+db/data/\#innodb_redo/\#ib_redo41_tmp
+db/data/binlog.000003
+db/data/binlog.000004
+db/data/binlog.000005
+db/data/solve/assignment.ibd
+db/data/solve/membership.ibd
+db/data/solve/membership_seq.ibd
+db/data/solve/problem.ibd

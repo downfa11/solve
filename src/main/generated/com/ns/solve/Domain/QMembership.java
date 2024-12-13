@@ -19,19 +19,13 @@ public class QMembership extends EntityPathBase<Membership> {
 
     public static final QMembership membership = new QMembership("membership");
 
+    public final StringPath account = createString("account");
+
     public final StringPath address = createString("address");
 
     public final DateTimePath<java.sql.Timestamp> createdAt = createDateTime("createdAt", java.sql.Timestamp.class);
 
-    public final StringPath curProductRegion = createString("curProductRegion");
-
     public final StringPath email = createString("email");
-
-    public final NumberPath<Integer> exp = createNumber("exp", Integer.class);
-
-    public final BooleanPath isValid = createBoolean("isValid");
-
-    public final NumberPath<Integer> level = createNumber("level", Integer.class);
 
     public final NumberPath<Long> membershipId = createNumber("membershipId", Long.class);
 
@@ -39,13 +33,11 @@ public class QMembership extends EntityPathBase<Membership> {
 
     public final StringPath nickname = createString("nickname");
 
+    public final StringPath password = createString("password");
+
     public final StringPath refreshToken = createString("refreshToken");
 
-    public final StringPath region = createString("region");
-
     public final EnumPath<Membership.ROLE> role = createEnum("role", Membership.ROLE.class);
-
-    public final StringPath type = createString("type");
 
     public QMembership(String variable) {
         super(Membership.class, forVariable(variable));

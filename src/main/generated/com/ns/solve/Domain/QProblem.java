@@ -7,7 +7,6 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.processing.Generated;
 import com.querydsl.core.types.Path;
-import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
@@ -19,8 +18,6 @@ public class QProblem extends EntityPathBase<Problem> {
     private static final long serialVersionUID = -1820862432L;
 
     public static final QProblem problem = new QProblem("problem");
-
-    public final ListPath<Case, SimplePath<Case>> caseList = this.<Case, SimplePath<Case>>createList("caseList", Case.class, SimplePath.class, PathInits.DIRECT2);
 
     public final DateTimePath<java.time.LocalDateTime> deadline = createDateTime("deadline", java.time.LocalDateTime.class);
 
