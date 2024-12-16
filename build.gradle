@@ -39,6 +39,10 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
 
+    // AWS ECR
+    implementation 'software.amazon.awssdk:ecr:2.20.28'
+    implementation 'software.amazon.awssdk:sts:2.20.28'
+
     //json
     implementation 'com.googlecode.json-simple:json-simple:1.1.1'
 

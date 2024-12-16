@@ -26,7 +26,7 @@ public class KubernetesController {
         return kubernetesService.executeCommand(podName, command.split(" "));
     }
 
-    @PostMapping("/ce")
+    @PostMapping("/createAndExecute")
     public String executePod(@RequestParam String podName, @RequestParam String image, @RequestParam String command) {
         return kubernetesService.createAndExecutePod(podName, image, command.split("\\s+"));
     }

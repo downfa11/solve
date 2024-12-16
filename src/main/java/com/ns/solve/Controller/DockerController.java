@@ -16,9 +16,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class DockerController {
     private final DockerService dockerService;
 
-    @GetMapping("build")
+    @GetMapping("/build")
     public ResponseEntity<String> buildDockerImage(@RequestParam String repoName){
-        return ResponseEntity.ok(dockerService.buildDockerImage(repoName));
+        return ResponseEntity.ok(dockerService.buildImage(repoName));
+    }
+
+    @GetMapping("/push")
+    public ResponseEntity<String> pushECRImage(@RequestParam String repoName){
+        return ResponseEntity.ok(dockerService.pushImage(repoName));
     }
 
 }
