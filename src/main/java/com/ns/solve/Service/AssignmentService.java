@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class AssignmentService {
-    private final ImageService imageService;
+    private final GitService gitService;
     private final AssignmentRepository assignmentRepository;
 
     public void registerAssignment(AssignmentDto assignmentDto) {

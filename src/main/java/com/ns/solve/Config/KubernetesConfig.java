@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class KubernetesConfig {
 
+
     @Bean
     public ApiClient apiClient() throws IOException {
         ApiClient client =  Config.defaultClient(); // ~/.kube/config

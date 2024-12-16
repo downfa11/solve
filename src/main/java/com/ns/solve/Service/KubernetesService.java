@@ -39,7 +39,7 @@ public class KubernetesService {
             V1Pod createdPod = api.createNamespacedPod("default", pod, null, null, null, null);
             return "Pod created: " + createdPod.getMetadata().getName();
         } catch (ApiException e) {
-            System.out.println("Error creating Pod in Service: " + e.getResponseBody());
+            System.out.println("ApiException ResponseBody: " + e.getResponseBody());
             System.out.println("HTTP Status Code: " + e.getCode());
             System.out.println("Response Headers: " + e.getResponseHeaders());
             return "Pod failed: " + e;

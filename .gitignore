@@ -213,3 +213,17 @@ db/data/solve/assignment.ibd
 db/data/solve/membership.ibd
 db/data/solve/membership_seq.ibd
 db/data/solve/problem.ibd
+db/data/\#innodb_temp/temp_1.ibt
+db/data/\#innodb_temp/temp_10.ibt
+db/data/\#innodb_temp/temp_2.ibt
+db/data/\#innodb_temp/temp_3.ibt
+db/data/\#innodb_temp/temp_4.ibt
+db/data/\#innodb_temp/temp_5.ibt
+db/data/\#innodb_temp/temp_6.ibt
+db/data/\#innodb_temp/temp_7.ibt
+db/data/\#innodb_temp/temp_8.ibt
+db/data/\#innodb_temp/temp_9.ibt
+db/data/binlog.000006
+db/data/binlog.000007
+db/data/ibtmp1
+gitRepository/market-service/
