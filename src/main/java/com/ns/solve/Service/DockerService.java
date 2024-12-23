@@ -25,11 +25,17 @@ import software.amazon.awssdk.services.ecr.model.GetAuthorizationTokenResponse;
 @Service
 @RequiredArgsConstructor
 public class DockerService {
+
     @Value("${ecr.image.uri:473749683913.dkr.ecr.ap-northeast-2.amazonaws.com/downfa11/solve}")
     private String ecrURI;
 
     @Value("${aws.ecr.region:ap-northeast-2}")
     private String region;
+
+    private final String ECR_IMAGE_PUSH_SUCCESS_MESSAGE = "[SUCCESS] AWS ECR Image push. ";
+    private final String ECR_IMAGE_PUSH_FAIL_MESSAGE = "[ERROR] AWS ECR Image push Failed. ";
+    private final String DOCKERFILE_BUILD_SUCCESS_MESSAGE = "Docker image  built successfully! ";
+    private final String DOCKERFILE_BUILD_FAIL_MESSAGE = "Error building Docker image: ";
 
     private final DockerClient dockerClient;
     private final GitService gitService;
@@ -38,17 +44,14 @@ public class DockerService {
         try {
             Path dockerfilePath = Path.of(gitService.findDirectoryByRepoName(repoName) + "/Dockerfile");
 
-            System.out.println(dockerfilePath);
             dockerClient.buildImageCmd(dockerfilePath.toFile())
                     .withTag(repoName)
                     .exec(new BuildImageResultCallback())
                     .awaitCompletion();
 
-            List<Image> imageList = dockerClient.listImagesCmd().exec();
-            System.out.println("imageList : " + imageList);
-            return "Docker image " + repoName + " built successfully!";
+            return DOCKERFILE_BUILD_SUCCESS_MESSAGE + repoName;
         } catch (Exception e) {
-            return "Error building Docker image: " + e.getMessage();
+            return DOCKERFILE_BUILD_FAIL_MESSAGE + e.getMessage();
         }
     }
 
@@ -69,11 +72,11 @@ public class DockerService {
                     .exec(new PushImageResultCallback())
                     .awaitCompletion();
 
-            return "[SUCCESS] AWS ECR Image push. " + ecrTag;
+            return  ECR_IMAGE_PUSH_SUCCESS_MESSAGE + ecrTag;
 
         } catch(Exception e){
             e.printStackTrace();
-            return "[ERROR] AWS ECR Image push Failed. " + ecrTag;
+            return  ECR_IMAGE_PUSH_FAIL_MESSAGE + ecrTag;
         }
     }
 

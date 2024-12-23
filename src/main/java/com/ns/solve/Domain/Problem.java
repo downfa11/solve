@@ -1,12 +1,18 @@
 package com.ns.solve.Domain;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import java.time.LocalDateTime;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import java.sql.Timestamp;
 import java.util.List;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,20 +20,27 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@Builder
 public class Problem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long problemId;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "membership_id")
+    private Membership membership;
+
+    private String title;
+    private String detail;
+
     public enum ProblemStatus{
         ALGORITHM, ASSIGNMENT, CTF
     }
-
     private ProblemStatus status;
 
-    private Long membershipId;
-    private LocalDateTime deadline;
-    private String detail;
+    private Timestamp deadline;
+    private Boolean isPublic;
 
-    // private List<Case> caseList;
+    @OneToMany(mappedBy = "problem", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Case> caseList;
 }

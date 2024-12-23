@@ -20,23 +20,24 @@ public class AssignmentController {
     private final AssignmentService assignmentService;
 
     @PostMapping("/register")
-    public void registerAssignment(@RequestBody AssignmentDto assignmentDto){
-        assignmentService.registerAssignment(assignmentDto);
+    public AssignmentDto registerAssignment(@RequestBody AssignmentDto assignmentDto){
+        return assignmentService.registerAssignment(assignmentDto);
     }
 
-    @PutMapping("/update/{AssignmentId}")
-    public void updateAssignment(@PathVariable Long assignmentId){
-        assignmentService.updateAssignment(assignmentId);
+    @PutMapping("/update/{assignmentId}")
+    public AssignmentDto updateAssignment(@PathVariable Long assignmentId, @RequestBody AssignmentDto assignmentDto){
+        return assignmentService.updateAssignment(assignmentId, assignmentDto);
     }
 
-    @DeleteMapping("/delete/{AssignmentId}")
+    @DeleteMapping("/delete/{assignmentId}")
     public void deleteAssignment(@PathVariable Long assignmentId){
+
         assignmentService.deleteAssignment(assignmentId);
     }
 
-    @GetMapping("/{AssignmentId}")
-    public void findAssignment(@PathVariable Long assignmentId){
-        assignmentService.findAssignment(assignmentId);
+    @GetMapping("/{assignmentId}")
+    public AssignmentDto findAssignment(@PathVariable Long assignmentId){
+        return assignmentService.findAssignment(assignmentId);
     }
 }
 

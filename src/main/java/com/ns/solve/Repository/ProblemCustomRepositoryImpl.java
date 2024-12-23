@@ -1,6 +1,6 @@
 package com.ns.solve.Repository;
 
-import com.ns.solve.Domain.dto.Case;
+import com.ns.solve.Domain.Case;
 import com.ns.solve.Domain.Problem;
 import com.ns.solve.Domain.QProblem;
 import com.ns.solve.Domain.dto.ProblemFilter;

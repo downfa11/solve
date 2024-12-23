@@ -7,31 +7,34 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import java.util.Map;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
 @Data
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Assignment {
+public class Case {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long assignmentId;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "membership_id")
-    private Membership membership;
+    private Long caseId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "problem_id")
     private Problem problem;
 
-    private String detail;
-    private String comment;
-    private String gitRepository;
+    public enum CaseKind {
+        HIDDEN, EVUALATION, EXAMPLE
+    }
+
+    private CaseKind caseKind;
+
+    private String input;
+    private String expectedOutput;
+
+    private Long bias;
+    private String caseDetail;
 }

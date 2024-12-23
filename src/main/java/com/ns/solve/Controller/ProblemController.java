@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -33,8 +34,8 @@ public class ProblemController {
     }
 
     @PutMapping("/update/{problemId}")
-    public void updateProblem(@PathVariable Long problemId){
-        problemService.updateProblem(problemId);
+    public void updateProblem(@PathVariable Long problemId, @RequestParam Boolean isPublic, @RequestBody ProblemDto problemDto){
+        problemService.updateProblem(problemId, isPublic, problemDto);
     }
 
     @DeleteMapping("/delete/{problemId}")
