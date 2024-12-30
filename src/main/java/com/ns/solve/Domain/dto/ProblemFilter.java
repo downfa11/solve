@@ -1,5 +1,6 @@
-package com.ns.solve.Domain;
+package com.ns.solve.Domain.dto;
 
+import com.ns.solve.Domain.Problem.ProblemStatus;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,6 +12,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProblemFilter{
-    private List<Problem.ProblemStatus> problemStatus;
+    private List<ProblemStatus> problemStatus;
     private List<String> regions;
 }

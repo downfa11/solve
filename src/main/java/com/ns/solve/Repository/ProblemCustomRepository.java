@@ -2,7 +2,7 @@ package com.ns.solve.Repository;
 
 import com.ns.solve.Domain.Case;
 import com.ns.solve.Domain.Problem;
-import com.ns.solve.Domain.ProblemFilter;
+import com.ns.solve.Domain.dto.ProblemFilter;
 import java.util.List;
 
 public interface ProblemCustomRepository {

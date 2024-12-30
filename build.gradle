@@ -32,22 +32,41 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    runtimeOnly 'com.mysql:mysql-connector-j'
+
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
 
+    // AWS ECR
+    implementation 'software.amazon.awssdk:ecr:2.20.28'
+    implementation 'software.amazon.awssdk:sts:2.20.28'
+
     //json
     implementation 'com.googlecode.json-simple:json-simple:1.1.1'
+
+    //jwt
+    implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
+    implementation 'io.jsonwebtoken:jjwt-impl:0.11.2'
+    implementation 'io.jsonwebtoken:jjwt-jackson:0.11.2'
 
     //Swagger
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2'
 
+    //Kubernetes Java Client
+    implementation 'io.kubernetes:client-java:18.0.0'
+
+    //Docker Java Client
+    implementation 'com.github.docker-java:docker-java:3.3.0'
+    implementation 'com.github.docker-java:docker-java-transport-okhttp:3.3.0'
+    implementation 'javax.ws.rs:javax.ws.rs-api:2.1.1'
+
+    // JGit
     implementation group: 'org.eclipse.jgit', name: 'org.eclipse.jgit', version: '4.4.1.201607150455-r'
     implementation 'software.amazon.awssdk:ecr:2.20.5'
 
     compileOnly 'org.projectlombok:lombok'
-    runtimeOnly 'org.postgresql:postgresql'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
@@ -92,6 +111,7 @@ docker {
     name project.name+":"+version
     dockerfile file('./Dockerfile')
     files tasks.bootJar.outputs.files
+    files file('./config')
     buildArgs(['JAR_FILE':tasks.bootJar.outputs.files.singleFile.name])
 }
 

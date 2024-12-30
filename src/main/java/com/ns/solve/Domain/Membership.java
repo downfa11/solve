@@ -29,6 +29,8 @@ public class Membership {
     private String nickname;
     private String address;
     private String email;
+
+    private String account;
     private String password;
 
     public enum ROLE{
