@@ -1,4 +1,4 @@
-package com.ns.solve.Controller;
+package com.ns.solve.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

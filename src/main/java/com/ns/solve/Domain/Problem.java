@@ -1,4 +1,4 @@
-package com.ns.solve.Domain;
+package com.ns.solve.domain;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -25,10 +25,6 @@ public class Problem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long problemId;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "membership_id")
-    private Membership membership;
 
     private String title;
     private String detail;

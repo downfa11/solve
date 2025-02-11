@@ -1,11 +1,9 @@
-package com.ns.solve.Service;
+package com.ns.solve.service;
 
-import com.ns.solve.Domain.Membership;
-import com.ns.solve.Domain.Problem;
-import com.ns.solve.Domain.dto.ProblemDto;
-import com.ns.solve.Domain.dto.ProblemFilter;
-import com.ns.solve.Repository.MembershipRepository;
-import com.ns.solve.Repository.ProblemRepository;
+import com.ns.solve.domain.Problem;
+import com.ns.solve.domain.dto.ProblemDto;
+import com.ns.solve.domain.dto.ProblemFilter;
+import com.ns.solve.repository.ProblemRepository;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,13 +14,9 @@ public class ProblemService {
     private final String NOT_FOUND_ID_ERROR_MESSAGE = "Not Found this Index.";
 
     private final ProblemRepository problemRepository;
-    private final MembershipRepository membershipRepository;
 
     public ProblemDto registerProblem(boolean isPublic, ProblemDto problemDto) {
-        Membership membership = membershipRepository.findByMembershipId(problemDto.getMembershipId()).get();
-
         Problem problem = Problem.builder()
-                .membership(membership)
                 .isPublic(isPublic)
                 .status(problemDto.getStatus())
                 .deadline(problemDto.getDeadline())
@@ -42,9 +36,6 @@ public class ProblemService {
 
     public void updateProblem(Long problemId, boolean isPublic, ProblemDto problemDto) {
         Problem problem = problemRepository.findById(problemId)
-                .orElseThrow(() -> new IllegalArgumentException(NOT_FOUND_ID_ERROR_MESSAGE));
-
-        Membership membership = membershipRepository.findByMembershipId(problemDto.getMembershipId())
                 .orElseThrow(() -> new IllegalArgumentException(NOT_FOUND_ID_ERROR_MESSAGE));
 
         problem.setIsPublic(isPublic);

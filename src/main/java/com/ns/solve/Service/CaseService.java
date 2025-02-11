@@ -1,9 +1,7 @@
-package com.ns.solve.Service;
+package com.ns.solve.service;
 
-import com.ns.solve.Domain.dto.AssignmentDto;
-import com.ns.solve.Domain.dto.CaseDto;
-import com.ns.solve.Repository.CaseRepository;
-import com.ns.solve.Repository.MembershipRepository;
+import com.ns.solve.domain.dto.CaseDto;
+import com.ns.solve.repository.CaseRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +10,6 @@ import org.springframework.stereotype.Service;
 public class CaseService {
     private final String NOT_FOUND_ID_ERROR_MESSAGE = "Not Found this Index.";
 
-    private final MembershipRepository membershipRepository;
     private final CaseRepository caseRepository;
 
     public void registerCase(CaseDto caseDto) {

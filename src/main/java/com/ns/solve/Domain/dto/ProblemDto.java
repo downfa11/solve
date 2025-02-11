@@ -1,18 +1,11 @@
-package com.ns.solve.Domain.dto;
+package com.ns.solve.domain.dto;
 
-import com.ns.solve.Domain.Case;
-import com.ns.solve.Domain.Membership;
-import com.ns.solve.Domain.Problem.ProblemStatus;
+import com.ns.solve.domain.Case;
+import com.ns.solve.domain.Problem;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -28,7 +21,7 @@ public class ProblemDto {
     private String title;
     private String detail;
 
-    private com.ns.solve.Domain.Problem.ProblemStatus status;
+    private Problem.ProblemStatus status;
 
     private Timestamp deadline;
 

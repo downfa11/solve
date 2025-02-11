@@ -1,25 +1,65 @@
-package com.ns.solve.Service;
+package com.ns.solve.service;
 
+import io.kubernetes.client.custom.IntOrString;
+import io.kubernetes.client.custom.Quantity;
 import io.kubernetes.client.openapi.ApiException;
 import io.kubernetes.client.openapi.apis.CoreV1Api;
 import io.kubernetes.client.openapi.models.V1Container;
+import io.kubernetes.client.openapi.models.V1HTTPGetAction;
 import io.kubernetes.client.openapi.models.V1ObjectMeta;
 import io.kubernetes.client.openapi.models.V1Pod;
 import io.kubernetes.client.openapi.models.V1PodSpec;
+import io.kubernetes.client.openapi.models.V1Probe;
+import io.kubernetes.client.openapi.models.V1ResourceRequirements;
+import io.kubernetes.client.util.Config;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
-import lombok.RequiredArgsConstructor;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
 public class KubernetesService {
-
+    private final ScheduledExecutorService executorService = Executors.newScheduledThreadPool(1);
+    private static final String NAMESPACE = "default";
+    private static final String WORKER_POD_NAME = "worker-pod";
     private final CoreV1Api api;
+
+    public KubernetesService() throws IOException {
+        this.api = new CoreV1Api(Config.defaultClient());
+        executorService.scheduleAtFixedRate(this::ensureWorkerPodExists, 0, 30, TimeUnit.SECONDS);
+    }
+
+    // Worker Pod Pool 생성 - HPA 가능
+    private void ensureWorkerPodExists() {
+        try {
+            api.readNamespacedPod(WORKER_POD_NAME, NAMESPACE, null);
+            System.out.println("Worker Pod already exists.");
+        } catch (ApiException e) {
+            System.out.println("Worker Pod does not exist, creating...");
+            createWorkerPod();
+        }
+    }
+
+    private void createWorkerPod() {
+        V1Pod pod = new V1Pod()
+                .metadata(new V1ObjectMeta().name(WORKER_POD_NAME))
+                .spec(new V1PodSpec()
+                        .containers(Collections.singletonList(createContainer("worker-container", "your-image"))));
+
+        try {
+            api.createNamespacedPod(NAMESPACE, pod, null, null, null, null);
+            System.out.println("Worker Pod created: " + WORKER_POD_NAME);
+        } catch (ApiException e) {
+            System.out.println("Error creating Worker Pod: " + e.getResponseBody());
+        }
+    }
+
 
     public String createPod(String podName, String image) {
         V1Pod pod = new V1Pod()
@@ -44,6 +84,47 @@ public class KubernetesService {
             System.out.println("Response Headers: " + e.getResponseHeaders());
             return "Pod failed: " + e;
         }
+    }
+
+    private V1Container createContainer(String containerName, String image) {
+        return new V1Container()
+                .name(containerName)
+                .image(image)
+                .command(Collections.singletonList("tail"))
+                .args(Arrays.asList("-f", "/dev/null"))
+                .resources(createResourceRequirements())
+                .livenessProbe(createLivenessProbe("live",8080))
+                .readinessProbe(createReadinessProbe("readiness",8080));
+    }
+
+    private V1ResourceRequirements createResourceRequirements() {
+        return new V1ResourceRequirements()
+                .limits(Collections.singletonMap("cpu", new Quantity("500m")))
+                .limits(Collections.singletonMap("memory", new Quantity("512Mi")))
+                .requests(Collections.singletonMap("cpu", new Quantity("250m")))
+                .requests(Collections.singletonMap("memory", new Quantity("256Mi")));
+    }
+
+    private V1Probe createLivenessProbe(String path, Integer port) {
+        return new V1Probe()
+                .httpGet(new V1HTTPGetAction()
+                        .path(path)
+                        .port(new IntOrString(port)))
+                .initialDelaySeconds(10)
+                .periodSeconds(5)
+                .timeoutSeconds(1)
+                .failureThreshold(3);
+    }
+
+    private V1Probe createReadinessProbe(String path, Integer port) {
+        return new V1Probe()
+                .httpGet(new V1HTTPGetAction()
+                        .path(path)
+                        .port(new IntOrString(port)))
+                .initialDelaySeconds(5)
+                .periodSeconds(5)
+                .timeoutSeconds(1)
+                .failureThreshold(3);
     }
 
     public String executeCommand(String podName, String... command) {

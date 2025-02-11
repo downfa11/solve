@@ -1,6 +1,5 @@
-package com.ns.solve.Config;
+package com.ns.solve.config;
 
-import com.ns.solve.Repository.MembershipRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -60,16 +59,6 @@ public class SecurityConfig {
                 .build();
 
         return new InMemoryUserDetailsManager(user, admin);
-    }
-
-    @Bean
-    public UserDetailsService dbUserDetailsService(MembershipRepository membershipRepository) {
-        return account -> membershipRepository.findByAccount(account)
-                .map(member -> User.withUsername(member.getName())
-                        .password(member.getPassword())
-                        .roles(member.getRoleName())
-                        .build()
-                ).orElseThrow(() -> new UsernameNotFoundException("Account not found: " + account));
     }
 
     @Bean

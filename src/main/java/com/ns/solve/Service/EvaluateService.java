@@ -1,4 +1,4 @@
-package com.ns.solve.Service;
+package com.ns.solve.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class EvaluateService {
-    private final AssignmentService assignmentService;
     private final ProblemService problemService;
     private final GitService gitService;
     private final CaseService caseService;

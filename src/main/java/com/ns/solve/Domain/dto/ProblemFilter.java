@@ -1,6 +1,6 @@
-package com.ns.solve.Domain.dto;
+package com.ns.solve.domain.dto;
 
-import com.ns.solve.Domain.Problem.ProblemStatus;
+import com.ns.solve.domain.Problem.ProblemStatus;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

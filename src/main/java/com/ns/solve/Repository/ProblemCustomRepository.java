@@ -1,8 +1,8 @@
-package com.ns.solve.Repository;
+package com.ns.solve.repository;
 
-import com.ns.solve.Domain.Case;
-import com.ns.solve.Domain.Problem;
-import com.ns.solve.Domain.dto.ProblemFilter;
+import com.ns.solve.domain.Case;
+import com.ns.solve.domain.Problem;
+import com.ns.solve.domain.dto.ProblemFilter;
 import java.util.List;
 
 public interface ProblemCustomRepository {

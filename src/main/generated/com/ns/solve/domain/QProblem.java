@@ -1,4 +1,4 @@
-package com.ns.solve.Domain;
+package com.ns.solve.domain;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
@@ -16,9 +16,7 @@ import com.querydsl.core.types.dsl.PathInits;
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
 public class QProblem extends EntityPathBase<Problem> {
 
-    private static final long serialVersionUID = -1820862432L;
-
-    private static final PathInits INITS = PathInits.DIRECT2;
+    private static final long serialVersionUID = -818869248L;
 
     public static final QProblem problem = new QProblem("problem");
 
@@ -28,31 +26,24 @@ public class QProblem extends EntityPathBase<Problem> {
 
     public final StringPath detail = createString("detail");
 
-    public final QMembership membership;
+    public final BooleanPath isPublic = createBoolean("isPublic");
 
     public final NumberPath<Long> problemId = createNumber("problemId", Long.class);
 
     public final EnumPath<Problem.ProblemStatus> status = createEnum("status", Problem.ProblemStatus.class);
 
+    public final StringPath title = createString("title");
+
     public QProblem(String variable) {
-        this(Problem.class, forVariable(variable), INITS);
+        super(Problem.class, forVariable(variable));
     }
 
     public QProblem(Path<? extends Problem> path) {
-        this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
+        super(path.getType(), path.getMetadata());
     }
 
     public QProblem(PathMetadata metadata) {
-        this(metadata, PathInits.getFor(metadata, INITS));
-    }
-
-    public QProblem(PathMetadata metadata, PathInits inits) {
-        this(Problem.class, metadata, inits);
-    }
-
-    public QProblem(Class<? extends Problem> type, PathMetadata metadata, PathInits inits) {
-        super(type, metadata, inits);
-        this.membership = inits.isInitialized("membership") ? new QMembership(forProperty("membership")) : null;
+        super(Problem.class, metadata);
     }
 
 }

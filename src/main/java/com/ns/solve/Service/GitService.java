@@ -1,4 +1,4 @@
-package com.ns.solve.Service;
+package com.ns.solve.service;
 
 import java.io.File;
 import java.nio.file.Path;

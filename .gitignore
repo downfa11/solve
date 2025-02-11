@@ -227,3 +227,4 @@ db/data/binlog.000006
 db/data/binlog.000007
 db/data/ibtmp1
 gitRepository/market-service/
+db/data/solve/problem_case.ibd

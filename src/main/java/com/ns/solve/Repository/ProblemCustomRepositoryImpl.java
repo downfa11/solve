@@ -1,9 +1,9 @@
-package com.ns.solve.Repository;
+package com.ns.solve.repository;
 
-import com.ns.solve.Domain.Case;
-import com.ns.solve.Domain.Problem;
-import com.ns.solve.Domain.QProblem;
-import com.ns.solve.Domain.dto.ProblemFilter;
+import com.ns.solve.domain.Case;
+import com.ns.solve.domain.Problem;
+import com.ns.solve.domain.QProblem;
+import com.ns.solve.domain.dto.ProblemFilter;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.util.List;
 import org.springframework.stereotype.Repository;

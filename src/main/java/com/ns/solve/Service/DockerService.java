@@ -1,4 +1,4 @@
-package com.ns.solve.Service;
+package com.ns.solve.service;
 
 import com.github.dockerjava.api.DockerClient;
 import com.github.dockerjava.api.async.ResultCallback;
@@ -6,13 +6,11 @@ import com.github.dockerjava.api.command.BuildImageResultCallback;
 import com.github.dockerjava.api.command.CreateContainerResponse;
 import com.github.dockerjava.api.model.Frame;
 import com.github.dockerjava.api.model.HostConfig;
-import com.github.dockerjava.api.model.Image;
 import com.github.dockerjava.api.model.PullResponseItem;
 import com.github.dockerjava.core.command.PushImageResultCallback;
 import java.io.File;
 import java.nio.file.Path;
 import java.util.Base64;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;

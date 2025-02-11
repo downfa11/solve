@@ -1,6 +1,6 @@
-package com.ns.solve.Controller;
+package com.ns.solve.controller;
 
-import com.ns.solve.Service.GitService;
+import com.ns.solve.service.GitService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

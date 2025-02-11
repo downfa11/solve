@@ -1,7 +1,7 @@
-package com.ns.solve.Controller;
+package com.ns.solve.controller;
 
-import com.ns.solve.Service.GitService;
-import com.ns.solve.Service.KubernetesService;
+import com.ns.solve.service.GitService;
+import com.ns.solve.service.KubernetesService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/k8s")
 @RequiredArgsConstructor
 public class KubernetesController {
-    private final GitService imageService;
     private final KubernetesService kubernetesService;
 
     @PostMapping("/create-pod")
@@ -23,6 +22,14 @@ public class KubernetesController {
 
     @PostMapping("/execute")
     public String executeCommand(@RequestParam String podName, @RequestBody String command) {
+        // executeCommand("python3", "-c", "print('Hello from Python!')");
+
+        // executeCommand("g++", "-o", "/tmp/hello", "/tmp/hello.cpp");
+        // executeCommand("/tmp/hello");
+
+        // executeCommand("sh", "-c", "echo 'Hello, Kubernetes!'");
+
+        // executeCommand("ping", "-c", "4", "google.com");
         return kubernetesService.executeCommand(podName, command.split(" "));
     }
 
