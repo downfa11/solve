@@ -21,11 +21,17 @@ public class QUser extends EntityPathBase<User> {
 
     public final StringPath account = createString("account");
 
+    public final DateTimePath<java.time.LocalDateTime> created = createDateTime("created", java.time.LocalDateTime.class);
+
     public final NumberPath<Long> id = createNumber("id", Long.class);
+
+    public final DateTimePath<java.time.LocalDateTime> lastActived = createDateTime("lastActived", java.time.LocalDateTime.class);
 
     public final StringPath nickname = createString("nickname");
 
     public final StringPath password = createString("password");
+
+    public final EnumPath<Role> role = createEnum("role", Role.class);
 
     public final NumberPath<Long> score = createNumber("score", Long.class);
 

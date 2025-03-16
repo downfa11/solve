@@ -1,48 +1,89 @@
 package com.ns.solve.service;
 
+import com.ns.solve.domain.Role;
 import com.ns.solve.domain.User;
-import com.ns.solve.repository.user.UserRepository;
+import com.ns.solve.domain.dto.ModifyUserDto;
+import com.ns.solve.domain.dto.RegisterUserDto;
+import com.ns.solve.domain.dto.UserDto;
+import com.ns.solve.domain.dto.UserRankDto;
+import com.ns.solve.repository.UserRepository;
+
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public User createUser(User user) {
+    public User createUser(RegisterUserDto registerUserDto) {
+        String nickname = registerUserDto.nickname();
+        String account = registerUserDto.account();
+        String password = registerUserDto.password();
+
+        if (!isValidUser(nickname, account))
+            return null;
+
+        User user = new User();
+        user.setNickname(nickname);
+        user.setAccount(account);
+        user.setPassword(bCryptPasswordEncoder.encode(password));
+        user.setRole(Role.ROLE_MEMBER);
+        user.setScore(0L);
+        user.setCreated(LocalDateTime.now());
+        user.setLastActived(LocalDateTime.now());
+
         return userRepository.save(user);
     }
+
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
+
     public Optional<User> getUserById(Long id) {
         return userRepository.findById(id);
     }
-    public Page<User> getUsersSortedByScore(int page, int size) {
-        return userRepository.findAllByOrderByScoreDesc(PageRequest.of(page, size));
+
+    public Page<UserRankDto> getUsersSortedByScore(int page, int size) {
+        return userRepository.findAllByOrderByScoreDesc(PageRequest.of(page, size))
+                .map(user -> new UserRankDto(user.getNickname(), user.getScore(),user.getCreated(), user.getLastActived()));
     }
+
     public User getUserByAccount(String account) {
         return userRepository.findByAccount(account);
     }
-    public User updateUser(Long id, User userDetails) {
+
+    public User updateUser(Long id, ModifyUserDto modifyUserDto) {
         Optional<User> existingUser = userRepository.findById(id);
+
         if (existingUser.isPresent()) {
+            String nickname = modifyUserDto.nickname();
+            String account = modifyUserDto.account();
+
+            if (!isValidUser(nickname, account))
+                return null;
+
             User updatedUser = existingUser.get();
-            updatedUser.setNickname(userDetails.getNickname());
-            updatedUser.setAccount(userDetails.getAccount());
-            updatedUser.setPassword(userDetails.getPassword());
-            updatedUser.setScore(userDetails.getScore());
+            updatedUser.setNickname(nickname);
+            updatedUser.setAccount(account);
+            updatedUser.setPassword(bCryptPasswordEncoder.encode(modifyUserDto.password()));
             return userRepository.save(updatedUser);
         }
         return null;
     }
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
+    }
+
+
+    private Boolean isValidUser(String nickname, String account){
+        return !(userRepository.existsByNickname(nickname) || userRepository.existsByAccount(account));
     }
 }
