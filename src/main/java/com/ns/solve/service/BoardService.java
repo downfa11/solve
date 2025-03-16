@@ -1,10 +1,13 @@
 package com.ns.solve.service;
 
 import com.ns.solve.domain.Board;
-import com.ns.solve.repository.BoardRepository;
+import com.ns.solve.domain.dto.BoardSummary;
+import com.ns.solve.repository.board.BoardRepository;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -30,5 +33,9 @@ public class BoardService {
     }
     public void deleteBoard(Long id) {
         boardRepository.deleteById(id);
+    }
+
+    public Page<BoardSummary> getBoards(Pageable pageable, boolean desc) {
+        return boardRepository.findBoardsByPage(pageable, desc);
     }
 }

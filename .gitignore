@@ -235,3 +235,4 @@ db/data/solve/comment.ibd
 db/data/solve/board.ibd
 db/data/solve/assignment_problem.ibd
 db/data/solve/algorithm_problem.ibd
+db/data/solve/solved.ibd
