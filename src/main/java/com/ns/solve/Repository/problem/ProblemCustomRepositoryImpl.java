@@ -2,9 +2,12 @@ package com.ns.solve.repository.problem;
 
 import com.ns.solve.domain.problem.Problem;
 import com.ns.solve.domain.problem.QProblem;
+import com.ns.solve.domain.problem.QWargameProblem;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import jakarta.persistence.LockModeType;
 import java.util.List;
+import java.util.Objects;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -13,10 +16,12 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class ProblemCustomRepositoryImpl implements ProblemCustomRepository {
     private final JPAQueryFactory jpaQueryFactory;
+    private final QWargameProblem qWargameProblem;
     private final QProblem qProblem;
 
     public ProblemCustomRepositoryImpl(JPAQueryFactory jpaQueryFactory){
         this.jpaQueryFactory = jpaQueryFactory;
+        this.qWargameProblem = QWargameProblem.wargameProblem;
         this.qProblem = QProblem.problem;
     }
 
@@ -25,15 +30,15 @@ public class ProblemCustomRepositoryImpl implements ProblemCustomRepository {
     public Page<Problem> findProblemsByStatusPending(PageRequest pageRequest) {
         List<Problem> results = jpaQueryFactory
                 .selectFrom(qProblem)
-                .where(qProblem.isChecked.isFalse())  // check가 false인 문제: 검수 전
+                .where(qProblem.isChecked.isFalse())
                 .offset(pageRequest.getOffset())
                 .limit(pageRequest.getPageSize())
                 .fetch();
 
         long total = jpaQueryFactory
                 .selectFrom(qProblem)
-                .where(qProblem.isChecked.isFalse())  // check가 false인 문제: 검수 전
-                .fetchCount();  // 전체 문제 수를 구하는 쿼리
+                .where(qProblem.isChecked.isFalse())
+                .fetchCount();
 
         return new PageImpl<>(results, pageRequest, total);
     }
@@ -54,6 +59,17 @@ public class ProblemCustomRepositoryImpl implements ProblemCustomRepository {
                 .fetchCount();
 
         return new PageImpl<>(results, pageRequest, total);
+    }
+
+    @Override
+    public Boolean matchFlagToProblems(Long problemId, String attemptedFlag ) {
+        String correctFlag  = jpaQueryFactory.select(qWargameProblem.flag)
+                .from(qWargameProblem)
+                .where(qWargameProblem.id.eq(problemId))
+                .setLockMode(LockModeType.PESSIMISTIC_WRITE)
+                .fetchOne();
+
+        return Objects.equals(attemptedFlag , correctFlag );
     }
 
     private BooleanExpression typeEq(String type) {

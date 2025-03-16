@@ -41,6 +41,8 @@ public class QWargameProblem extends EntityPathBase<WargameProblem> {
     //inherited
     public final NumberPath<Double> entireCount = _super.entireCount;
 
+    public final StringPath flag = createString("flag");
+
     //inherited
     public final NumberPath<Long> id = _super.id;
 

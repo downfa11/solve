@@ -7,4 +7,6 @@ import org.springframework.data.domain.PageRequest;
 public interface ProblemCustomRepository {
     Page<Problem> findProblemsByStatusPending(PageRequest pageRequest);
     Page<Problem> findProblemsByStatusAndType(String type, PageRequest pageRequest);
+
+    Boolean matchFlagToProblems(Long problemId, String attemptedFlag);
 }

@@ -1,6 +1,7 @@
-package com.ns.solve.Utils;
+package com.ns.solve.utils;
 
 import com.ns.solve.domain.dto.ProblemSummary;
+import com.ns.solve.domain.dto.WargameProblemDto;
 import com.ns.solve.domain.problem.Problem;
 import com.ns.solve.domain.problem.WargameProblem;
 
@@ -38,5 +39,28 @@ public class ProblemMapper {
         return problems.stream()
                 .map(ProblemMapper::toProblemSummary)
                 .collect(Collectors.toList());
+    }
+
+    public static WargameProblemDto toWargameProblemDto(WargameProblem problem) {
+        return new WargameProblemDto(
+                problem.getId(),
+                problem.getTitle(),
+                problem.getIsChecked(),
+                problem.getType(),
+                problem.getCreator(),
+                problem.getSolution(),
+                problem.getAttemptCount(),
+                problem.getEntireCount(),
+                problem.getCorrectCount(),
+                problem.getSource(),
+                problem.getReviewer(),
+                problem.getTags(),
+                problem.getCreatedAt(),
+                problem.getUpdatedAt(),
+                problem.getLevel(),
+                problem.getFlag(),
+                problem.getDockerfileLink(),
+                problem.getProblemFile()
+        );
     }
 }

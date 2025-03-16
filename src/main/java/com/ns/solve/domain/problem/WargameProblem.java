@@ -1,6 +1,5 @@
 package com.ns.solve.domain.problem;
 
-import com.ns.solve.domain.dto.ProblemSummary;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
@@ -16,6 +15,7 @@ import lombok.NoArgsConstructor;
 public class WargameProblem extends Problem {
 
     private String level;
+    private String flag;
 
     @Column(nullable = true)
     private String dockerfileLink;
