@@ -3,15 +3,15 @@ name: Solve-Deployment
 on:
   push:
     branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
+    paths-ignore:
+      - ".github/workflows/**"
+      - "docker-compose.yaml"
+      - "Dockerfile"
+      - "README.md"
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v4
       
