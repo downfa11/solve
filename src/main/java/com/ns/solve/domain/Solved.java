@@ -19,11 +19,11 @@ public class Solved {
 
 
     @ManyToOne
-    @JoinColumn(name = "solved_user_id", referencedColumnName = "id")
+    @JoinColumn(name = "user_id")
     private User solvedUser;
 
     @ManyToOne
-    @JoinColumn(name = "solved_problem_id", referencedColumnName = "id")
+    @JoinColumn(name = "problem_id")
     private Problem solvedProblem;
 
     private LocalDateTime solvedTime;

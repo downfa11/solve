@@ -24,8 +24,8 @@ public class BoardCustomRepositoryImpl implements BoardCustomRepository {
     @Override
     public Page<BoardSummary> findBoardsByPage(Pageable pageable, boolean desc) {
         List<BoardSummary> boardSummaries = jpaQueryFactory
-                .select(qBoard)
-                .from(qBoard)
+                .selectFrom(qBoard)
+                // .leftJoin(qBoard.creator).fetchJoin() n+1
                 .orderBy(desc ? qBoard.createdAt.desc() : qBoard.createdAt.asc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
@@ -34,7 +34,7 @@ public class BoardCustomRepositoryImpl implements BoardCustomRepository {
                 .map(board -> new BoardSummary(
                         board.getId(),
                         board.getTitle(),
-                        board.getCreator(),
+                        board.getCreator().getNickname(),
                         board.getUpdatedAt(),
                         (long) board.getCommentList().size()) // commentList의 크기
                 )

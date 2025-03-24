@@ -22,12 +22,17 @@ import lombok.NoArgsConstructor;
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "comment_id")
     private Long id;
 
     private String content;
 
     @Column(nullable = false)
     private String type; // problem, board
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User creator;
 
     @ManyToOne(optional = true)
     @JoinColumn(name = "problem_id")

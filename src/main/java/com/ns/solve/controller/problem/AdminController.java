@@ -33,7 +33,7 @@ public class AdminController {
     @Operation(summary = "검수 완료", description = "해당 문제의 검수를 완료해서 사용자들에게 보여집니다.")
     @PutMapping("/check/{id}")
     public ResponseEntity<MessageEntity> checkProblem(@PathVariable Long id) {
-        WargameProblemDto checkedProblem = problemService.markProblemAsChecked(id);
+        WargameProblemDto checkedProblem = problemService.toggleProblemCheckStatus(id);
         return ResponseEntity.ok(new MessageEntity("Problem marked as checked", checkedProblem));
     }
 }

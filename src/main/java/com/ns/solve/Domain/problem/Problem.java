@@ -20,12 +20,13 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "problem")
+@Table(name = "problems")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Problem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "problem_id")
     private Long id;
 
     @Column(nullable = false)

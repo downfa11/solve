@@ -37,7 +37,7 @@ public class WargameProblemController {
     })
     @GetMapping
     public ResponseEntity<MessageEntity> getAllWargameProblems() {
-        List<WargameProblem> wargameProblems = problemService.getWargameProblems();
+        List<WargameProblem> wargameProblems = problemService.getAllWargameProblems();
         return ResponseEntity.ok(new MessageEntity("Wargame Problems fetched successfully", wargameProblems));
     }
 }

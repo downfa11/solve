@@ -20,6 +20,27 @@ services:
       - MYSQL_PORT=3306
       - MYSQL_DATABASE=solve
 
+#  solve:
+#    image: downfa11/solve:latest
+#    networks:
+#      - solve_network
+#    ports:
+#      - "8080:8080"
+#    depends_on:
+#      - mysql
+#    environment:
+#      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/solve?useSSL=false&allowPublicKeyRetrieval=true
+#      - SPRING_DATASOURCE_USERNAME=mysqluser
+#      - SPRING_DATASOURCE_PASSWORD=mysqlpw
+#      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+#      - SPRING_JPA_DATABASE_PLATFORM=org.hibernate.dialect.MySQLDialect
+#      - KAKAO_CLIENT_ID=
+#      - KAKAO_CLIENT_SECRET=
+#      - KAKAO_REDIRECT_URL=http://localhost/kakao/callback
+#      - NAVER_CLIENT_ID=
+#      - NAVER_CLIENT_SECRET=
+#      - NAVER_REDIRECT_URL=naver/callback
+
 networks:
   solve_network:
     driver: bridge

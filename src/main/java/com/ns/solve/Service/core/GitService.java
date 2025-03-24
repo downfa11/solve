@@ -14,13 +14,13 @@ import org.springframework.stereotype.Service;
 public class GitService {
 
     @Value("${container.image.directory:C:\\Users\\jks83\\OneDrive\\문서\\GitHub\\solve\\/gitRepository}")
-    private String directory;
+    public static String gitDirectory;
 
     public void cloneRepository(String repoUrl) throws GitAPIException {
         if (!isValidGitRepoUrl(repoUrl)) return;
 
         String repoName = repoUrl.substring(repoUrl.lastIndexOf('/') + 1, repoUrl.lastIndexOf('.'));
-        Path fullLocalPath = Paths.get(directory, repoName);
+        Path fullLocalPath = Paths.get(gitDirectory, repoName);
 
         File repoDir = fullLocalPath.toFile();
         if (!repoDir.exists()) {
@@ -67,6 +67,6 @@ public class GitService {
     }
 
     public Path findDirectoryByRepoName(String repoName) {
-        return Paths.get(directory, repoName);
+        return Paths.get(gitDirectory, repoName);
     }
 }

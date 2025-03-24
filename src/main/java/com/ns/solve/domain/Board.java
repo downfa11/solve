@@ -1,26 +1,20 @@
 package com.ns.solve.domain;
 
 
-import com.ns.solve.domain.Comment;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.PrePersist;
-import jakarta.persistence.PreUpdate;
+import jakarta.persistence.*;
+import lombok.Data;
+
 import java.time.LocalDateTime;
 import java.util.List;
-import lombok.Data;
 
 @Entity
 @Data
+@Table(name = "boards")
 public class Board {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "board_id")
     private Long id;
 
     @Column(nullable = false)
@@ -29,7 +23,9 @@ public class Board {
     @Column(nullable = false)
     private String type;  // 공지사항, 자유게시판
 
-    private String creator;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User creator;
 
     @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
     private List<Comment> commentList;

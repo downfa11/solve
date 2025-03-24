@@ -28,6 +28,8 @@ public class QComment extends EntityPathBase<Comment> {
 
     public final DateTimePath<java.time.LocalDateTime> createdAt = createDateTime("createdAt", java.time.LocalDateTime.class);
 
+    public final QUser creator;
+
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
     public final com.ns.solve.domain.problem.QProblem problem;
@@ -54,7 +56,8 @@ public class QComment extends EntityPathBase<Comment> {
 
     public QComment(Class<? extends Comment> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.board = inits.isInitialized("board") ? new QBoard(forProperty("board")) : null;
+        this.board = inits.isInitialized("board") ? new QBoard(forProperty("board"), inits.get("board")) : null;
+        this.creator = inits.isInitialized("creator") ? new QUser(forProperty("creator")) : null;
         this.problem = inits.isInitialized("problem") ? new com.ns.solve.domain.problem.QProblem(forProperty("problem")) : null;
     }
 
